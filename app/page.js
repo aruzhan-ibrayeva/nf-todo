@@ -25,7 +25,7 @@ export default function Home() {
         if (!inputValue) return;
 
         const newTask = {
-            id: Date.now(),  //for unique ids
+            id: Date.now(),  //used for unique ids
             text: inputValue,
             completed: false,
         };

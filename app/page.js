@@ -1,17 +1,31 @@
-'use client';
+'use client'
 import TaskList from './components/TaskList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
     const [tasks, setTasks] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [filter, setFilter] = useState('all');
 
+    // hard level implementation with useEffect:
+    useEffect(() => {
+        const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+        if (storedTasks) {
+            setTasks(storedTasks);
+        }
+    }, []);
+
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]); 
+
+
     const handleAddTask = () => {
         if (!inputValue) return;
 
         const newTask = {
-            id: tasks.length + 1,
+            id: Date.now(),  //for unique ids
             text: inputValue,
             completed: false,
         };
